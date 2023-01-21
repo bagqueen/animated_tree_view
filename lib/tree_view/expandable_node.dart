@@ -98,15 +98,17 @@ class _ExpandableNodeContainer<T> extends StatelessWidget {
               child: child,
             ),
             if (expansionIndicator != null)
-              Padding(
-                padding: expansionIndicator!.padding,
-                child: Align(
-                  alignment: expansionIndicator!.alignment,
-                  child: isExpanded
-                      ? expansionIndicator!.collapseIcon
-                      : expansionIndicator!.expandIcon,
+              Positioned.fill(
+                child: Padding(
+                  padding: expansionIndicator!.padding,
+                  child: Align(
+                    alignment: expansionIndicator!.alignment,
+                    child: isExpanded
+                        ? expansionIndicator!.collapseIcon
+                        : expansionIndicator!.expandIcon,
+                  ),
                 ),
-              ),
+              )
           ],
         ),
       ),
