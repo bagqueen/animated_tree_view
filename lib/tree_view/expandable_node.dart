@@ -86,32 +86,31 @@ class _ExpandableNodeContainer<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizeTransition(
-      axis: Axis.vertical,
-      sizeFactor: CurvedAnimation(parent: animation, curve: Curves.easeOut),
-      child: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: onTap == null ? null : () => onTap!(item),
-        child: Stack(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: indentPadding),
-              child: child,
+        axis: Axis.vertical,
+        sizeFactor: CurvedAnimation(parent: animation, curve: Curves.easeOut),
+        child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: onTap == null ? null : () => onTap!(item),
+          child: Padding(
+            padding: EdgeInsets.only(left: indentPadding),
+            child: Stack(
+              children: <Widget>[
+                child,
+                if (expansionIndicator != null)
+                  Positioned.fill(
+                    child: Padding(
+                      padding: expansionIndicator!.padding,
+                      child: Align(
+                        alignment: expansionIndicator!.alignment,
+                        child: isExpanded
+                            ? expansionIndicator!.collapseIcon
+                            : expansionIndicator!.expandIcon,
+                      ),
+                    ),
+                  )
+              ],
             ),
-            if (expansionIndicator != null)
-              Positioned.fill(
-                child: Padding(
-                  padding: expansionIndicator!.padding,
-                  child: Align(
-                    alignment: expansionIndicator!.alignment,
-                    child: isExpanded
-                        ? expansionIndicator!.collapseIcon
-                        : expansionIndicator!.expandIcon,
-                  ),
-                ),
-              )
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }
